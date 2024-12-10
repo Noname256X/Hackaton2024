@@ -1,16 +1,27 @@
-# This is a sample Python script.
+from aiogram import Bot, types
+from aiogram.utils import executor
+from aiogram.dispatcher import Dispatcher
+from aiogram.dispatcher import FSMContext
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.dispatcher.filters.state import StatesGroup, State
+from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
+import config
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+bot = Bot(token=(config.TOKEN))
+storage = MemoryStorage()
+dp = Dispatcher(bot, storage=storage)
+
+async def on_startup(_):
+    print('Бот запущен')
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
 
-# Press the green button in the gutter to run the script.
+
+
+
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    executor.start_polling(dp, skip_updates=True, on_startup=on_startup) #Что бы не отвечал на сообщения когда не онлайн, чтобы отвечал при выходе в онлайн False
